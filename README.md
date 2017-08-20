@@ -152,6 +152,71 @@ k8-wrk-3-ad3.localdomain   Ready     21m       v1.7.3
 
 ## Step 3 Deploy Sample Application
 
+For the purpose of this demo I will be using one of sample docker image from my Docker Hub Repository. This images is marked as public and can be used by anyone. 
+
+1. SSH into Kubernetes Master Host (k8_Master ) and Run below command
+
+[opc@k8-master ~]$ kubectl get pods
+
+You would notice no pods are running at this time
+
+2. Run kubectl command to create deployment from sample image (ashutrip/k8tutorialnode)
+
+[opc@k8-master ~]$ kubectl run k8tutorialnode --image=docker.io/ashutrip/k8tutorialnode:latest --port 8000
+
+3. Run below command to verify that deployment and related POD is created
+
+[opc@k8-master k8tutorialdeployment]$ kubectl get deployments
+NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+k8tutorialnode   1         1         1            1           6m
+[opc@k8-master k8tutorialdeployment]$ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+k8tutorialnode-3443821872-vrrq2   1/1       Running   0          7m
+
+5. As you can see 1 replica of container is running. Find out on which node this replica is running by running below command. In my case it was running on k-wrk-2-ad2 . Kubernetes Master determines where to run the container.
+
+[opc@k8-wrk-2-ad2 ~]$ date
+Sun Aug 20 12:14:35 GMT 2017
+[opc@k8-wrk-2-ad2 ~]$ docker ps | grep k8tutorial
+8ca058fba2f2        docker.io/ashutrip/k8tutorialnode@sha256:c4b29c619e74fbda376cd0d6afe6ce6d5544614e49c1d1f615b9bb7fbb27fdd8           "npm start"              15 minutes ago      Up 15 minutes                           k8s_k8tutorialnode_k8tutorialnode-3443821872-vrrq2_default_f1e61267-859e-11e7-90b8-0000170003e5_0
+
+6. This service is not yet accesible outside Kubernetes Network or not exposed to internet. We will use [NodePort] https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport feature to do that 
+
+[opc@k8-master ~]$ kubectl expose deployment k8tutorialnode --type=NodePort --name=k8tutorialnode-svc
+service "k8tutorialnode-svc" exposed
+
+7. Run below command to find out the NodePort 
+[opc@k8-master ~]$ kubectl describe services k8tutorialnode-svc
+Name:                   k8tutorialnode-svc
+Namespace:              default
+Labels:                 run=k8tutorialnode
+Annotations:            <none>
+Selector:               run=k8tutorialnode
+Type:                   NodePort
+IP:                     10.105.230.12
+Port:                   <unset> 8000/TCP
+NodePort:               <unset> <b>31805/</b>TCP
+Endpoints:              10.244.2.2:8000
+Session Affinity:       None
+Events:                 <none>
+
+Note down the NodePort and you can access your service by directly going http://<publicip of k8-work-node wher container is running>:31805. ( rememeber to open this port in Security List for public access for this test) 
+
+8. Now Scale the applications  so that it can run on all 3 nodes
+
+[opc@k8-master ~]$ kubectl scale deployment hello-web --replicas=3
+
+[opc@k8-master ~]$ kubectl get pods
+
+NAME                              READY     STATUS              RESTARTS   AGE
+k8tutorialnode-3443821872-6vfbr   1/1       Running		0          52s
+k8tutorialnode-3443821872-83gmw   1/1       Running             0          52s
+k8tutorialnode-3443821872-vrrq2   1/1       Running             0          32m
+
+At this time Container is running on all three worker nodes
+
 ## Step 4 Configure Load Balancer
+
+Load balancer will provide single entry point to end user and will distribute the traffic to all worker nodes.
 
 ## Conclusion
