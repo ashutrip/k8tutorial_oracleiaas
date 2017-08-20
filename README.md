@@ -22,15 +22,16 @@ Prerequisite: Oracle Bare Metal Access [Request for Trial account](https://cloud
 
 This step we will configure 4 hosts. Hosts can be configured as Virtual Hosts or Bare Metal host. This demonstration is using 2 OCPU shape for nodes. Master node is running only on one instance and worker nodes are running on 3 different virtual machines spread across different availability domain to provide high availability. 
 
-1. Follow steps mentioned [Launch your first Instance] https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Reference/overviewworkflow.htm
+1. Follow steps mentioned ![Launch your first Instance] https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Reference/overviewworkflow.htm
 2. Configure Block Storage for each individual hosts
 3. By now should have 4 Host machines (K8_MASTER, K8_WRK_1_AD1, K8_WRK_2_AD2, and K8_WRK_3_AD3) up and running? 
 3. User Private Key created in step 1 to log into each virtual hosts and run below commands.
 	- Run <b>sudo yum update –y<b> on all machines
 	- Disable and stop firewall service. This is to enable intercommunication between master node and worker nodes. 
 		sudo systemctl disable firewalld && systemctl stop firewalld
-4. Go to Virtual Cloud Network Security list and look at picture below to open ports for VCN CIDR block
-
+4. Go to Virtual Cloud Network Security list and open below to open ports  for VCN CIDR block
+	-Source CIDR 10.0.0.0/16 ( or whatever VCN CIDR used in your environment)
+	-Destination Port 6443 and 2379 used for Master Node Communication ( port 6443 and 2379 are default ports in K8) 
 
 ## Step 2 Configure Kubernetes on Host
 
