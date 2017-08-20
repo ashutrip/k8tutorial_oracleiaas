@@ -177,11 +177,11 @@ k8tutorialnode-3443821872-vrrq2   1/1       Running   0          7m
 
 6. This service is not yet accesible outside Kubernetes Network or not exposed to internet. We will use [NodePort] https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport feature to do that 
 
-[opc@k8-master ~]$ kubectl expose deployment k8tutorialnode --type=NodePort --name=k8tutorialnode-svc
+[opc@k8-master ~]$ kubectl expose deployment k8tutorialnode --type=NodePort --name=k8tutorialnode-svc <br>
 service "k8tutorialnode-svc" exposed
 
 7. Run below command to find out the NodePort 
-[opc@k8-master ~]$ kubectl describe services k8tutorialnode-svc
+[opc@k8-master ~]$ kubectl describe services k8tutorialnode-svc <br>
 Name:                   k8tutorialnode-svc
 Namespace:              default
 Labels:                 run=k8tutorialnode
