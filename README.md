@@ -38,7 +38,7 @@ All Kubernetes Host should have docker running and Kubernetes configured. Follow
 ### 2.1 Install Docker
 Docker set up is needed on all machines. Repeat below commands for all hosts ( 1 Master and 3 worker nodes)
 
-[root@k8-master opc]# yum install docker –y
+[root@k8-master opc]# yum install docker –y <br>
 [root@k8-master opc]# systemctl enable docker && systemctl start docker
 
 Run below commands as well so that docker commands can be accessed as non root users as well
