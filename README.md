@@ -1,24 +1,24 @@
-# Setting up Kubernetes Cluster on Oracle Bare Metal Cloud Service
+# Setting up Kubernetes Cluster on Oracle Bare Metal Cloud Service in Less than 30 minutes
 Step by step guide to set up Kubernetes Cluster on Oracle Bare Metal Cloud Services. All the steps can be automated however following step by step approach would provide better insights into how things are done
 
 ## Introduction
 
-## Configure Hosts on Oracle Cloud Environment
+## Step 1 Configure Hosts on Oracle Cloud Environment
 
-## Configure Kubernetes on Host
+## Step 2 Configure Kubernetes on Host
 
-### Install Docker
+### 2.1 Install Docker
 
-### Install Kubernetes
+### 2.2 Install Kubernetes
 
 ####    Configure Master Node
 
 ####    Configure Worker Nodes
 
-### Verify Kubernetes Installation
+## 2.3 Verify Kubernetes Installation
 
-## Deploy Sample Application
+## Step 3 Deploy Sample Application
 
-## Configure Load Balancer
+## Step 4 Configure Load Balancer
 
 ## Conclusion
