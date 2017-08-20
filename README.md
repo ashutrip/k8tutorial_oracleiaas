@@ -49,14 +49,84 @@ $ sudo usermod -aG docker $USER  ( in my case its opc)
 Docker should be up and running by now.  Verify with below commands
 
 <b>[opc@k8-wrk-1-ad1 ~]$ sudo systemctl status docker</b>
- docker.service - Docker Application Container Engine
+ <br>docker.service - Docker Application Container Engine
    Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor preset: disabled)
    Active: active (running) since Sun 2017-08-20 12:08:38 GMT; 9h ago
      Docs: http://docs.docker.com
 
 ### 2.2 Install Kubernetes
+In this step we will configure Master Node and Worker nodes.
 
 #### 		Configure Master Node
+
+ ###### Configure kubectl ( needed only for master)  - 
+ 
+ [Refer Install Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+      Run below command on k8_master node 
+      	curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+	
+	After above Run 
+	
+		Run below command
+			[root@k8-master opc]# chmod +x ./kubectl
+			[root@k8-master opc]# sudo mv ./kubectl /usr/local/bin/kubectl
+
+###### Install Kubelet and Kubeadm
+1. Create repos file for kubeadm and kubelet
+
+	cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+2. Run below command 
+
+setenforce 0
+yum install -y kubelet kubeadm
+systemctl enable kubelet && systemctl start kubelet
+
+###### Configure Kubernetes Master
+
+1. Run below command to initialize kubeadm . kubeadm will provision kubernetes cluster. 
+	kubeadm init --pod-network-cidr=10.244.0.0/16
+	
+	pod-network-cidr parameter need to be passed if using flannel for Container Networking. 
+	
+2. Wait for kubeadm init command to finish. ( may take around 5-10 mins) 
+
+3. Look at the output of kubeadm and save it in notepad. From that output run the below comands on Master Host as regular user.
+
+	To start using your cluster, you need to run (as a regular user):
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+4. Run below commands for flannel network
+	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
+	
+5. Verify whether Master is configured correctly
+
+	[opc@k8-master ~]$ kubectl get pods --all-namespaces
+	It should print something like below
+	
+	NAMESPACE     NAME                                READY     STATUS    RESTARTS   AGE
+	kube-system   etcd-k8-master                      1/1       Running   0          4m
+	kube-system   kube-apiserver-k8-master            1/1       Running   0          4m
+	kube-system   kube-controller-manager-k8-master   1/1       Running   0          4m
+	kube-system   kube-dns-2425271678-vwwpt           3/3       Running   0          4m
+	kube-system   kube-flannel-ds-5n1fr               2/2       Running   2          48s
+	kube-system   kube-proxy-j0xbp                    1/1       Running   0          4m
+	kube-system   kube-scheduler-k8-master            1/1       Running   0          3m
+
+This completes the configuration of Master Node.
 
 #### 		Configure Worker Nodes
 
