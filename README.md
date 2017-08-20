@@ -11,7 +11,14 @@ Step by step guide to set up Kubernetes Cluster on Oracle Bare Metal Cloud Servi
 
 ### Install Kubernetes
 
-#### Configure Master Node
+####   Configure Master Node
 
-#### Configure Worker Node
+####   Configure Worker Nodes
 
+### Verify Kubernetes Installation
+
+## Deploy Sample Application
+
+## Configure Load Balancer
+
+## Conclusion
