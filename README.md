@@ -13,7 +13,7 @@ Prerequisite: Oracle Bare Metal Access [Request for Trial account](https://cloud
 
  Key Points
  ----------
-  - All Nodes ( One Master Node & 3 Worker Nodes are running Core OS 7 version 
+  - All Nodes ( One Master Node & 3 Worker Nodes) are running Core OS 7 version 
   - All worker nodes are spread across 3 Availability Domain in Phoenix region
   - Load Balancer is used to distribute user traffic across all worker nodes
   
