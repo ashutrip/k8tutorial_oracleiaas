@@ -42,7 +42,7 @@ Docker set up is needed on all machines. Repeat below commands for all hosts ( 1
 [root@k8-master opc]# systemctl enable docker && systemctl start docker
 
 Run below commands as well so that docker commands can be accessed as non root users as well
-$ sudo groupadd docker
+$ sudo groupadd docker <br>
 $ sudo usermod -aG docker $USER  ( in my case its opc) 
 
 Docker should be up and running by now.  Verify with below commands
@@ -86,8 +86,8 @@ EOF
 
 2. Run below command 
 
-setenforce 0
-yum install -y kubelet kubeadm
+setenforce 0 <br>
+yum install -y kubelet kubeadm <br>
 systemctl enable kubelet && systemctl start kubelet
 
 ###### Configure Kubernetes Master
@@ -113,7 +113,7 @@ systemctl enable kubelet && systemctl start kubelet
 	
 5. Verify whether Master is configured correctly
 
-	[opc@k8-master ~]$ kubectl get pods --all-namespaces <br>
+	[opc@k8-master ~]$ kubectl get pods --all-namespaces <br> 
 	It should print something like below 	<br>
 	NAMESPACE     NAME                                READY     STATUS    RESTARTS   AGE
 	kube-system   etcd-k8-master                      1/1       Running   0          4m
@@ -133,15 +133,14 @@ Follow steps mentioned in [Install Kubelet and Kubeadm] (https://github.com/ashu
 After configuration run below command on all worker nodes
 
 Run below commands in order
-[root@k8-wrk-1-ad1]# systemctl enable kubelet
-[root@k8-wrk-1-ad1]# systemctl start kubelet
+[root@k8-wrk-1-ad1]# systemctl enable kubelet && systemctl start kubelet <br>
 [root@k8-wrk-1-ad1]# kubeadm join --token 851d7e.7a13b1e75482c46c 10.0.1.22:6443   
   Note: use the token statement produced by kubeadm init while provising master
 
 ## 2.3 Verify Kubernetes Installation
 Run below command to verify whether Kubernetes Master and Worker nodes are running and all communicating
 
-[opc@k8-master ~]$ kubectl get nodes
+[opc@k8-master ~]$ kubectl get nodes <br>
 NAME                       STATUS    AGE       VERSION
 k8-master                  Ready     59m       v1.7.3
 k8-wrk-1-ad1               Ready     1m        v1.7.3
@@ -154,27 +153,25 @@ For the purpose of this demo I will be using one of sample docker image from my 
 
 1. SSH into Kubernetes Master Host (k8_Master ) and Run below command
 
-[opc@k8-master ~]$ kubectl get pods
+[opc@k8-master ~]$ kubectl get pods <br>
 
 You would notice no pods are running at this time
 
-2. Run kubectl command to create deployment from sample image (ashutrip/k8tutorialnode)
+2. Run kubectl command to create deployment from sample image (ashutrip/k8tutorialnode) <br>
 
 [opc@k8-master ~]$ kubectl run k8tutorialnode --image=docker.io/ashutrip/k8tutorialnode:latest --port 8000
 
 3. Run below command to verify that deployment and related POD is created
 
-[opc@k8-master k8tutorialdeployment]$ kubectl get deployments
+[opc@k8-master k8tutorialdeployment]$ kubectl get deployments <br>
 NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 k8tutorialnode   1         1         1            1           6m
-[opc@k8-master k8tutorialdeployment]$ kubectl get pods
+[opc@k8-master k8tutorialdeployment]$ kubectl get pods <br>
 NAME                              READY     STATUS    RESTARTS   AGE
 k8tutorialnode-3443821872-vrrq2   1/1       Running   0          7m
 
 5. As you can see 1 replica of container is running. Find out on which node this replica is running by running below command. In my case it was running on k-wrk-2-ad2 . Kubernetes Master determines where to run the container.
 
-[opc@k8-wrk-2-ad2 ~]$ date
-Sun Aug 20 12:14:35 GMT 2017
 [opc@k8-wrk-2-ad2 ~]$ docker ps | grep k8tutorial
 8ca058fba2f2        docker.io/ashutrip/k8tutorialnode@sha256:c4b29c619e74fbda376cd0d6afe6ce6d5544614e49c1d1f615b9bb7fbb27fdd8           "npm start"              15 minutes ago      Up 15 minutes                           k8s_k8tutorialnode_k8tutorialnode-3443821872-vrrq2_default_f1e61267-859e-11e7-90b8-0000170003e5_0
 
@@ -202,7 +199,7 @@ Note down the NodePort and you can access your service by directly going http://
 
 8. Now Scale the applications  so that it can run on all 3 nodes
 
-[opc@k8-master ~]$ kubectl scale deployment hello-web --replicas=3
+[opc@k8-master ~]$ kubectl scale deployment hello-web --replicas=3 <br>
 [opc@k8-master ~]$ kubectl get pods <br>
 
 NAME                              READY     STATUS              RESTARTS   AGE
