@@ -233,7 +233,7 @@ Load balancer will provide single entry point to end user and will distribute th
 
 Test the link : http://<loadbalancerip>:<listener port> to access and verify 
 
-
-
+![alt text]https://github.com/ashutrip/k8tutorial_oracleiaas/blob/master/samplescreenoutput.png
 
 ## Conclusion
+Kubernetes is a very powerful technology to orchestrate and manage Containers across multiple hosts. All the steps mentioned can be automated and can very well integrated into CI/CD process. Step by Step approach helps beginners to understand how things work and make it easy to grasp things. 
