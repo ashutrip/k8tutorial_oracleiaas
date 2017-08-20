@@ -108,13 +108,13 @@ systemctl enable kubelet && systemctl start kubelet
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 4. Run below commands for flannel network
-	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml <br>
 	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
 	
 5. Verify whether Master is configured correctly
 
-	[opc@k8-master ~]$ kubectl get pods --all-namespaces
-	It should print something like below 	
+	[opc@k8-master ~]$ kubectl get pods --all-namespaces <br>
+	It should print something like below 	<br>
 	NAMESPACE     NAME                                READY     STATUS    RESTARTS   AGE
 	kube-system   etcd-k8-master                      1/1       Running   0          4m
 	kube-system   kube-apiserver-k8-master            1/1       Running   0          4m
