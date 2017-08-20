@@ -218,7 +218,7 @@ At this time Container is running on all three worker nodes
 
 Load balancer will provide single entry point to end user and will distribute the traffic to all worker nodes.
 
-1. Follow the [Create Load Balancer] (https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/loadbalancing.htm) steps 
+1. Follow the [Create Load Balancer](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/loadbalancing.htm) steps 
 
 2. Make sure to select Public Load Balancer and select any two public subnets.
 
@@ -230,7 +230,7 @@ Load balancer will provide single entry point to end user and will distribute th
 
 6. Make sure to open that port for public access in Security List.
 
-Test the link : http://<loadbalancerip>:<listener port> to access and verify 
+Test the link : http://[loadbalancerip]:[listener port] to access and verify 
 
 ![alt text](https://github.com/ashutrip/k8tutorial_oracleiaas/blob/master/samplescreenoutput.png)
 
