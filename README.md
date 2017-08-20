@@ -130,7 +130,25 @@ This completes the configuration of Master Node.
 
 #### 		Configure Worker Nodes
 
+Follow steps mentioned in [Install Kubelet and Kubeadm] (https://github.com/ashutrip/k8tutorial_oracleiaas/blob/master/README.md#install-kubelet-and-kubeadm)
+
+After configuration run below command on all worker nodes
+
+Run below commands in order
+[root@k8-wrk-1-ad1]# systemctl enable kubelet^C
+[root@k8-wrk-1-ad1]# systemctl start kubelet^C
+[root@k8-wrk-1-ad1]# kubeadm join --token 851d7e.7a13b1e75482c46c 10.0.1.22:6443   
+  Note: use the token statement produced by kubeadm init while provising master
+
 ## 2.3 Verify Kubernetes Installation
+Run below command to verify whether Kubernetes Master and Worker nodes are running and all communicating
+
+[opc@k8-master ~]$ kubectl get nodes
+NAME                       STATUS    AGE       VERSION
+k8-master                  Ready     59m       v1.7.3
+k8-wrk-1-ad1               Ready     1m        v1.7.3
+k8-wrk-2-ad2               Ready     9m        v1.7.3
+k8-wrk-3-ad3.localdomain   Ready     21m       v1.7.3
 
 ## Step 3 Deploy Sample Application
 
