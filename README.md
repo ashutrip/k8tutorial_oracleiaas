@@ -2,7 +2,6 @@
 Step by step guide to set up Kubernetes Cluster on Oracle Bare Metal Cloud Services. All the steps can be automated however following step by step approach would provide better insights into how things are done
 
 ## Introduction
-Introduction
 This tutorial shows you how to build and deploy a Kubernetes Cluster on Oracle Bare Metal Cloud Services. Oracle Metal Cloud enables organizations to run Enterprise Workloads on highly available infrastructure that provides best price performance in market.
 
 Kubernetes is an Open Source System for automating deployment, scaling and management of Containerize applications. Follow the rest of the guide to bring up K8 ( Kubernetes) Cluster in Oracle Bare Metal Environment. 
