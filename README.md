@@ -219,4 +219,21 @@ At this time Container is running on all three worker nodes
 
 Load balancer will provide single entry point to end user and will distribute the traffic to all worker nodes.
 
+1. Follow the [Create Load Balancer] (https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/loadbalancing.htm) steps 
+
+2. Make sure to select Public Load Balancer and select any two public subnets.
+
+3. Configure Backend set and backend pointing to all 3 Worker Node and NodePort (31805) 
+
+4. Backend set will automatically necessary egress & ingress rules in Security List
+
+5. Create Listener for Load Balancer and define port you want to use ( I used 9000 ) .
+
+6. Make sure to open that port for public access in Security List.
+
+Test the link : http://<loadbalancerip>:<listener port> to access and verify 
+
+
+
+
 ## Conclusion
