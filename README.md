@@ -21,7 +21,7 @@ Prerequisite: Oracle Bare Metal Access [Request for Trial account](https://cloud
 
 This step we will configure 4 hosts. Hosts can be configured as Virtual Hosts or Bare Metal host. This demonstration is using 2 OCPU shape for nodes. Master node is running only on one instance and worker nodes are running on 3 different virtual machines spread across different availability domain to provide high availability. 
 
-1. Follow steps mentioned [Launch your first Instance] (https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Reference/overviewworkflow.htm)
+1. Follow steps mentioned [Launch your first Instance](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Reference/overviewworkflow.htm)
 2. Configure Block Storage for each individual hosts
 3. By now should have 4 Host machines (K8_MASTER, K8_WRK_1_AD1, K8_WRK_2_AD2, and K8_WRK_3_AD3) up and running? 
 3. User Private Key created in step 1 to log into each virtual hosts and run below commands.
@@ -113,8 +113,8 @@ systemctl enable kubelet && systemctl start kubelet
 	
 5. Verify whether Master is configured correctly
 
-	[opc@k8-master ~]$ kubectl get pods --all-namespaces
-	It should print something like below
+	[opc@k8-master ~]$ kubectl get pods --all-namespaces \n
+	It should print something like below \n
 	
 	NAMESPACE     NAME                                READY     STATUS    RESTARTS   AGE
 	kube-system   etcd-k8-master                      1/1       Running   0          4m
@@ -134,8 +134,8 @@ Follow steps mentioned in [Install Kubelet and Kubeadm] (https://github.com/ashu
 After configuration run below command on all worker nodes
 
 Run below commands in order
-[root@k8-wrk-1-ad1]# systemctl enable kubelet^C
-[root@k8-wrk-1-ad1]# systemctl start kubelet^C
+[root@k8-wrk-1-ad1]# systemctl enable kubelet
+[root@k8-wrk-1-ad1]# systemctl start kubelet
 [root@k8-wrk-1-ad1]# kubeadm join --token 851d7e.7a13b1e75482c46c 10.0.1.22:6443   
   Note: use the token statement produced by kubeadm init while provising master
 
@@ -232,7 +232,7 @@ Load balancer will provide single entry point to end user and will distribute th
 
 Test the link : http://<loadbalancerip>:<listener port> to access and verify 
 
-![alt text]https://github.com/ashutrip/k8tutorial_oracleiaas/blob/master/samplescreenoutput.png
+![alt text](https://github.com/ashutrip/k8tutorial_oracleiaas/blob/master/samplescreenoutput.png)
 
 ## Conclusion
 Kubernetes is a very powerful technology to orchestrate and manage Containers across multiple hosts. All the steps mentioned can be automated and can very well integrated into CI/CD process. Step by Step approach helps beginners to understand how things work and make it easy to grasp things. 
