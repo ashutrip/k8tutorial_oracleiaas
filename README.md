@@ -108,14 +108,13 @@ systemctl enable kubelet && systemctl start kubelet
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 4. Run below commands for flannel network
-	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml \n
+	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
 	
 5. Verify whether Master is configured correctly
 
-	[opc@k8-master ~]$ kubectl get pods --all-namespaces \n
-	It should print something like below \n
-	
+	[opc@k8-master ~]$ kubectl get pods --all-namespaces
+	It should print something like below 	
 	NAMESPACE     NAME                                READY     STATUS    RESTARTS   AGE
 	kube-system   etcd-k8-master                      1/1       Running   0          4m
 	kube-system   kube-apiserver-k8-master            1/1       Running   0          4m
@@ -204,8 +203,7 @@ Note down the NodePort and you can access your service by directly going http://
 8. Now Scale the applications  so that it can run on all 3 nodes
 
 [opc@k8-master ~]$ kubectl scale deployment hello-web --replicas=3
-
-[opc@k8-master ~]$ kubectl get pods
+[opc@k8-master ~]$ kubectl get pods <br>
 
 NAME                              READY     STATUS              RESTARTS   AGE
 k8tutorialnode-3443821872-6vfbr   1/1       Running		0          52s
