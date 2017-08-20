@@ -61,7 +61,7 @@ In this step we will configure Master Node and Worker nodes.
  ###### Configure kubectl ( needed only for master)  - 
  
  [Refer Install Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-      Run below command on k8_master node 
+      Run below command on k8_master node  <br>
       	curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 	
 	After above Run 
@@ -164,10 +164,10 @@ You would notice no pods are running at this time
 3. Run below command to verify that deployment and related POD is created
 
 [opc@k8-master k8tutorialdeployment]$ kubectl get deployments <br>
-NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE<br>
 k8tutorialnode   1         1         1            1           6m
 [opc@k8-master k8tutorialdeployment]$ kubectl get pods <br>
-NAME                              READY     STATUS    RESTARTS   AGE
+NAME                              READY     STATUS    RESTARTS   AGE<br>
 k8tutorialnode-3443821872-vrrq2   1/1       Running   0          7m
 
 5. As you can see 1 replica of container is running. Find out on which node this replica is running by running below command. In my case it was running on k-wrk-2-ad2 . Kubernetes Master determines where to run the container.
@@ -231,3 +231,11 @@ Test the link : http://[loadbalancerip]:[listener port] to access and verify
 
 ## Conclusion
 Kubernetes is a very powerful technology to orchestrate and manage Containers across multiple hosts. All the steps mentioned can be automated and can very well integrated into CI/CD process. Step by Step approach helps beginners to understand how things work and make it easy to grasp things. 
+##### Additional References 
+
+[Oracle Bare Metal Cloud Service](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Concepts/concepts.htm) 
+[Kubernetes](https://kubernetes.io/docs/getting-started-guides/centos/centos_manual_config/)
+[Getting Started With Docker](https://docs.docker.com/get-started/)
+
+
+
