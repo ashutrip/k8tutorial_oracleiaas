@@ -42,8 +42,6 @@ Docker set up is needed on all machines. Repeat below commands for all hosts ( 1
 [root@k8-master opc]# systemctl enable docker && systemctl start docker
 
 Run below commands as well so that docker commands can be accessed as non root users as well <br>
-
-Run below command
 	$ sudo groupadd docker <br>
 	$ sudo usermod -aG docker $USER  ( in my case its opc) 
 
