@@ -115,14 +115,14 @@ systemctl enable kubelet && systemctl start kubelet
 
 	[opc@k8-master ~]$ kubectl get pods --all-namespaces <br> 
 	It should print something like below 	<br>
-	NAMESPACE     NAME                                READY     STATUS    RESTARTS   AGE
-	kube-system   etcd-k8-master                      1/1       Running   0          4m
-	kube-system   kube-apiserver-k8-master            1/1       Running   0          4m
-	kube-system   kube-controller-manager-k8-master   1/1       Running   0          4m
-	kube-system   kube-dns-2425271678-vwwpt           3/3       Running   0          4m
-	kube-system   kube-flannel-ds-5n1fr               2/2       Running   2          48s
-	kube-system   kube-proxy-j0xbp                    1/1       Running   0          4m
-	kube-system   kube-scheduler-k8-master            1/1       Running   0          3m
+	NAMESPACE     NAME                                READY     STATUS    RESTARTS   AGE<br>
+	kube-system   etcd-k8-master                      1/1       Running   0          4m<br>
+	kube-system   kube-apiserver-k8-master            1/1       Running   0          4m<br>
+	kube-system   kube-controller-manager-k8-master   1/1       Running   0          4m<br>
+	kube-system   kube-dns-2425271678-vwwpt           3/3       Running   0          4m<br>
+	kube-system   kube-flannel-ds-5n1fr               2/2       Running   2          48s<br>
+	kube-system   kube-proxy-j0xbp                    1/1       Running   0          4m<br>
+	kube-system   kube-scheduler-k8-master            1/1       Running   0          3m<br>
 
 This completes the configuration of Master Node.
 
@@ -141,11 +141,11 @@ Run below commands in order
 Run below command to verify whether Kubernetes Master and Worker nodes are running and all communicating
 
 [opc@k8-master ~]$ kubectl get nodes <br>
-NAME                       STATUS    AGE       VERSION
-k8-master                  Ready     59m       v1.7.3
-k8-wrk-1-ad1               Ready     1m        v1.7.3
-k8-wrk-2-ad2               Ready     9m        v1.7.3
-k8-wrk-3-ad3.localdomain   Ready     21m       v1.7.3
+NAME                       STATUS    AGE       VERSION<br>
+k8-master                  Ready     59m       v1.7.3<br>
+k8-wrk-1-ad1               Ready     1m        v1.7.3<br>
+k8-wrk-2-ad2               Ready     9m        v1.7.3<br>
+k8-wrk-3-ad3.localdomain   Ready     21m       v1.7.3<br>
 
 ## Step 3 Deploy Sample Application
 
@@ -172,7 +172,7 @@ k8tutorialnode-3443821872-vrrq2   1/1       Running   0          7m
 
 5. As you can see 1 replica of container is running. Find out on which node this replica is running by running below command. In my case it was running on k-wrk-2-ad2 . Kubernetes Master determines where to run the container.
 
-[opc@k8-wrk-2-ad2 ~]$ docker ps | grep k8tutorial
+[opc@k8-wrk-2-ad2 ~]$ docker ps | grep k8tutorial<br>
 8ca058fba2f2        docker.io/ashutrip/k8tutorialnode@sha256:c4b29c619e74fbda376cd0d6afe6ce6d5544614e49c1d1f615b9bb7fbb27fdd8           "npm start"              15 minutes ago      Up 15 minutes                           k8s_k8tutorialnode_k8tutorialnode-3443821872-vrrq2_default_f1e61267-859e-11e7-90b8-0000170003e5_0
 
 6. This service is not yet accesible outside Kubernetes Network or not exposed to internet. We will use [NodePort] https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport feature to do that 
@@ -182,18 +182,18 @@ service "k8tutorialnode-svc" exposed
 
 7. Run below command to find out the NodePort 
 [opc@k8-master ~]$ kubectl describe services k8tutorialnode-svc <br>
-Name:                   k8tutorialnode-svc
-Namespace:              default
-Labels:                 run=k8tutorialnode
-Annotations:            <none>
-Selector:               run=k8tutorialnode
-Type:                   NodePort
-IP:                     10.105.230.12
-Port:                   <unset> 8000/TCP
-NodePort:               <unset> <b>31805/</b>TCP
-Endpoints:              10.244.2.2:8000
-Session Affinity:       None
-Events:                 <none>
+Name:                   k8tutorialnode-svc<br>
+Namespace:              default<br>
+Labels:                 run=k8tutorialnode<br>
+Annotations:            <none><br>
+Selector:               run=k8tutorialnode<br>
+Type:                   NodePort<br>
+IP:                     10.105.230.12<br>
+Port:                   <unset> 8000/TCP<br>
+NodePort:               <unset> <b>31805/</b>TCP<br>
+Endpoints:              10.244.2.2:8000<br>
+Session Affinity:       None<br>
+Events:                 <none><br>
 
 Note down the NodePort and you can access your service by directly going http://<publicip of k8-work-node wher container is running>:31805. ( rememeber to open this port in Security List for public access for this test) 
 
@@ -202,10 +202,10 @@ Note down the NodePort and you can access your service by directly going http://
 [opc@k8-master ~]$ kubectl scale deployment hello-web --replicas=3 <br>
 [opc@k8-master ~]$ kubectl get pods <br>
 
-NAME                              READY     STATUS              RESTARTS   AGE
-k8tutorialnode-3443821872-6vfbr   1/1       Running		0          52s
-k8tutorialnode-3443821872-83gmw   1/1       Running             0          52s
-k8tutorialnode-3443821872-vrrq2   1/1       Running             0          32m
+NAME                              READY     STATUS              RESTARTS   AGE<br>
+k8tutorialnode-3443821872-6vfbr   1/1       Running		0          52s<br>
+k8tutorialnode-3443821872-83gmw   1/1       Running             0          52s<br>
+k8tutorialnode-3443821872-vrrq2   1/1       Running             0          32m<br>
 
 At this time Container is running on all three worker nodes
 
