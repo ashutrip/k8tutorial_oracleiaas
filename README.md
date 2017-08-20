@@ -11,6 +11,7 @@ Prerequisite: Oracle Bare Metal Access [Request for Trial account](https://cloud
 
 ## High Level Architecture
 
+![alt text](https://github.com/ashutrip/k8tutorial_oracleiaas/blob/master/HighLevelArchitecture.png "High Level Architecture")
 
 ## Step 1 Configure Hosts on Oracle Cloud Environment
 
